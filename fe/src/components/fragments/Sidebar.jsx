@@ -7,6 +7,7 @@ function Sidebar(props) {
   const { role } = props;
   const navigate = useNavigate();
   const [isPopupLogout, setIsPopupLogout] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
   const isActive = (path) => {
     return location.pathname === path ? 'text-blue-500' : '';
@@ -73,14 +74,20 @@ function Sidebar(props) {
   return (
     <div>
       {isPopupLogout && <PopupConfirmation onConfirm={() => handleConfirm()} onCancel={handleCancel} type="logout" />}
-      <div className="md:w-80 h-screen md:py-4 md:px-16 border-r-2 border-gray-200 bg-white fixed left-0">
-        <div className="mb-6">
+      <div className="w-full flex flex-row md:flex-col justify-between md:justify-start md:w-80 md:h-screen py-3.5 px-4 md:py-4 md:px-16 md:border-r-2 md:border-gray-200 bg-white md:fixed left-0">
+        <div className="mb-0 md:mb-6">
           <Link to={role === 'admin' ? '#' : '/'}>
-            <img src="/logo.png" alt="Logo" className="h-15" />
+            <img src="/logo.png" alt="Logo" className="h-11 md:h-12" />
           </Link>
         </div>
+        <button className="md:hidden text-gray-500 hover:text-gray-700 focus:outline-none focus:text-gray-700" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+
         {links.map((link) => (
-          <div className="py-2" key={link.path}>
+          <div className="md:py-2 hidden md:block" key={link.path}>
             <Link to={link.path} className={`flex space-x-2 ${isActive(link.path)}`}>
               {/* <img src={link.icon} alt={link.label} /> */}
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={`h-6 ${location.pathname === link.path ? 'text-blue-500' : 'text-gray-500'}`}>
@@ -90,7 +97,8 @@ function Sidebar(props) {
             </Link>
           </div>
         ))}
-        <div className="fixed bottom-4">
+
+        <div className="fixed bottom-4 hidden md:block">
           <button className="text-blue-500 flex flex-row space-x-2" onClick={() => handleLogoutClick()}>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-6">
               <path d="M4 18H6V20H18V4H6V6H4V3C4 2.44772 4.44772 2 5 2H19C19.5523 2 20 2.44772 20 3V21C20 21.5523 19.5523 22 19 22H5C4.44772 22 4 21.5523 4 21V18ZM6 11H13V13H6V16L1 12L6 8V11Z"></path>
@@ -99,6 +107,26 @@ function Sidebar(props) {
           </button>
         </div>
       </div>
+
+      {/* responsife mobile */}
+      {links.map((link) => (
+        <div className={`py-1.5 px-4 ${isMobileMenuOpen ? 'block' : 'hidden'}`} key={link.path}>
+          <Link to={link.path} className={`flex space-x-2 ${isActive(link.path)}`}>
+            {/* <img src={link.icon} alt={link.label} /> */}
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={`h-6 ${location.pathname === link.path ? 'text-blue-500' : 'text-gray-500'}`}>
+              <path d={link.icon}></path>
+            </svg>
+            <div>{link.label}</div>
+          </Link>
+        </div>
+      ))}
+
+      <button className={` ${isMobileMenuOpen ? 'block' : 'hidden'} py-1 px-4 text-blue-500 flex flex-row space-x-2`} onClick={() => handleLogoutClick()}>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-6">
+          <path d="M4 18H6V20H18V4H6V6H4V3C4 2.44772 4.44772 2 5 2H19C19.5523 2 20 2.44772 20 3V21C20 21.5523 19.5523 22 19 22H5C4.44772 22 4 21.5523 4 21V18ZM6 11H13V13H6V16L1 12L6 8V11Z"></path>
+        </svg>
+        <div>Logout</div>
+      </button>
     </div>
   );
 }
