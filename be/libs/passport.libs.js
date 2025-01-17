@@ -14,67 +14,67 @@ passport.use(
       try {
         const taskLandingJobs = await prisma.taskLandingJob.findMany();
         const taskLinkedinProfiles = await prisma.taskLinkedinProfile.findMany();
-        const existUser = await prisma.users.findUnique({ where: { email: profile.emails[0].value } });
-        const existBooking = await prisma.booking.findFirst({ where: { email: profile.emails[0].value } });
+        // const existUser = await prisma.users.findUnique({ where: { email: profile.emails[0].value } });
+        // const existBooking = await prisma.booking.findFirst({ where: { email: profile.emails[0].value } });
 
-        if (existUser || existBooking) {
-          let user = await prisma.users.upsert({
-            where: { email: profile.emails[0].value },
-            update: { name: profile.displayName, profilePicture: profile.photos[0].value, googleId: profile.id },
-            create: {
-              name: profile.displayName,
-              profilePicture: profile.photos[0].value,
-              email: profile.emails[0].value,
-              googleId: profile.id,
-            },
+        // if (existUser || existBooking) {
+        let user = await prisma.users.upsert({
+          where: { email: profile.emails[0].value },
+          update: { name: profile.displayName, profilePicture: profile.photos[0].value, googleId: profile.id },
+          create: {
+            name: profile.displayName,
+            profilePicture: profile.photos[0].value,
+            email: profile.emails[0].value,
+            googleId: profile.id,
+          },
+        });
+
+        const existSelfCheckLandingJob = await prisma.selfCheckLandingJob.findMany({
+          where: {
+            userId: user.id,
+          },
+        });
+
+        const existingTaskLandingJobIds = new Set(existSelfCheckLandingJob.map((data) => data.taskId));
+        const newTaskLandingJobToInsert = taskLandingJobs
+          .filter((task) => !existingTaskLandingJobIds.has(task.id))
+          .map((task) => ({
+            userId: user.id,
+            taskId: task.id,
+            status: false,
+          }));
+
+        if (newTaskLandingJobToInsert.length > 0) {
+          await prisma.selfCheckLandingJob.createMany({
+            data: newTaskLandingJobToInsert,
           });
-
-          const existSelfCheckLandingJob = await prisma.selfCheckLandingJob.findMany({
-            where: {
-              userId: user.id,
-            },
-          });
-
-          const existingTaskLandingJobIds = new Set(existSelfCheckLandingJob.map((data) => data.taskId));
-          const newTaskLandingJobToInsert = taskLandingJobs
-            .filter((task) => !existingTaskLandingJobIds.has(task.id))
-            .map((task) => ({
-              userId: user.id,
-              taskId: task.id,
-              status: false,
-            }));
-
-          if (newTaskLandingJobToInsert.length > 0) {
-            await prisma.selfCheckLandingJob.createMany({
-              data: newTaskLandingJobToInsert,
-            });
-          }
-
-          const existSelfCheckLinkedinProfile = await prisma.selfCheckLinkedinProfile.findMany({
-            where: {
-              userId: user.id,
-            },
-          });
-
-          const existingTaskLinkedinProfileIds = new Set(existSelfCheckLinkedinProfile.map((data) => data.taskId));
-          const newTaskLinkedinProfileToInsert = taskLinkedinProfiles
-            .filter((task) => !existingTaskLinkedinProfileIds.has(task.id))
-            .map((task) => ({
-              userId: user.id,
-              taskId: task.id,
-              status: false,
-            }));
-
-          if (newTaskLinkedinProfileToInsert.length > 0) {
-            await prisma.selfCheckLinkedinProfile.createMany({
-              data: newTaskLinkedinProfileToInsert,
-            });
-          }
-
-          done(null, user);
-        } else {
-          done(null, false, { message: 'No matching user or booking found' });
         }
+
+        const existSelfCheckLinkedinProfile = await prisma.selfCheckLinkedinProfile.findMany({
+          where: {
+            userId: user.id,
+          },
+        });
+
+        const existingTaskLinkedinProfileIds = new Set(existSelfCheckLinkedinProfile.map((data) => data.taskId));
+        const newTaskLinkedinProfileToInsert = taskLinkedinProfiles
+          .filter((task) => !existingTaskLinkedinProfileIds.has(task.id))
+          .map((task) => ({
+            userId: user.id,
+            taskId: task.id,
+            status: false,
+          }));
+
+        if (newTaskLinkedinProfileToInsert.length > 0) {
+          await prisma.selfCheckLinkedinProfile.createMany({
+            data: newTaskLinkedinProfileToInsert,
+          });
+        }
+
+        done(null, user);
+        // } else {
+        //   done(null, false, { message: 'No matching user or booking found' });
+        // }
       } catch (err) {
         done(err, null);
       }

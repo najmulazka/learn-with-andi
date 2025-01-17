@@ -19,8 +19,8 @@ app.use((req, res, next) => {
 });
 
 // cron.schedule('*/30 * * * *', () => {
-  console.log('a');
-  getBookingCalendly();
+//   console.log('a');
+  // getBookingCalendly();
 // });
 
 app.use('/api/v1', routes);
