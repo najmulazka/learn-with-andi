@@ -78,7 +78,8 @@ function Branding() {
           <h1 className="font-bold mb-3 w-4/5 leading-tight md:leading-tight">Land Your Dream Job in 90 Days with LearnWithAndi</h1>
           <p className="text-xs md:text-base w-4/5 mb-12">Elevating Career Consultation Services for the Modern Professional</p>
           <div className="flex space-x-2 text-xs md:text-base semibold">
-            <a href="/booking">
+            {/* <a href="/booking"> */}
+            <a href="https://learnwithandi.myr.id/pl/roasting-cv-and-linkedin" target="_blank">
               <button className={`font-bold py-1 px-2 md:py-2 md:px-8 border border-2 border-black bg-black text-white rounded hover:bg-white hover:text-black`} type="button">
                 Consult Now!
               </button>
@@ -114,29 +115,39 @@ function StartConseling() {
       <h2 className="font-bold mb-3 text-center">How To Start Counseling</h2>
       <p className="text-center text-xs md:text-base mb-10 md:w-3/5">Starting your career journey with LearnWithAndi is simple. Follow these steps to book a personalized counseling session, anytime and anywhere.</p>
 
-      <div className="md:grid grid-cols-3 space-x-3">
+      <div className="md:grid grid-cols-4 space-x-3">
+        <div className="flex flex-col items-center md:mb-0 mb-10">
+          <div className="bg-indigo-300  rounded-lg">
+            <img src="/startConseling0.png" alt="image" className="h-48" />
+          </div>
+          <h3 className="text-center mb-2 mt-8">Payment</h3>
+          <p className="text-center text-10 md:text-xs">
+            Click the button <strong>Book consultation</strong> and you will be directed to the payment page, with a fee of IDR 300,000 per session.
+          </p>
+        </div>
+
         <div className="flex flex-col items-center md:mb-0 mb-10">
           <div className="bg-amber-200  rounded-lg">
-            <img src="/startConseling1.png" alt="image" className="h-60" />
+            <img src="/startConseling1.png" alt="image" className="h-48" />
           </div>
-          <h3 className="text-center mb-2 mt-8">Book a session</h3>
-          <p className="text-center text-10 md:text-xs">Choose a time that works best for you through the online schedule, with IDR 150,000 per session</p>
+          <h3 className="text-center mb-2 mt-8">Select Schedule</h3>
+          <p className="text-center text-10 md:text-xs">Once payment is made, you will be asked to select a meeting session schedule.</p>
         </div>
 
         <div className="flex flex-col items-center md:mb-0 mb-10">
           <div className="bg-indigo-300  rounded-lg">
-            <img src="/startConseling2.png" alt="image" className="h-60" />
+            <img src="/startConseling2.png" alt="image" className="h-48" />
           </div>
-          <h3 className="text-center mb-2 mt-8">Drop Your CV Via LinkdIn Chat</h3>
-          <p className="text-center text-10 md:text-xs">Send your CV and essential information to provide a better understanding of your background and situation</p>
+          <h3 className="text-center mb-2 mt-8">Send CV</h3>
+          <p className="text-center text-10 md:text-xs">Send your CV via linkedin chat and essential information to provide a better understanding of your background and situation</p>
         </div>
 
         <div className="flex flex-col items-center md:mb-0 mb-10">
           <div className="bg-amber-200  rounded-lg">
-            <img src="/startConseling3.png" alt="image" className="h-60" />
+            <img src="/startConseling3.png" alt="image" className="h-48" />
           </div>
           <h3 className="text-center mb-2 mt-8">Join Video Call Session</h3>
-          <p className="text-center text-10 md:text-xs">Join a one-on-one video call with andi to discuss your career goals and challenges</p>
+          <p className="text-center text-10 md:text-xs">Join a one-on-one video call via a Google Meet link that goes into Gmail with andi to discuss your career goals and challenges</p>
         </div>
       </div>
     </div>
@@ -194,7 +205,8 @@ function Testimoni(props) {
       <h2 className="font-bold mb-10 text-center">What They Say About LearnWithAndi</h2>
       <div className="flex justify-center overflow-x-auto space-x-4">{children}</div>
       <div className=" flex justify-center mt-10">
-        <a href="/booking">
+        {/* <a href="/booking"> */}
+        <a href="https://learnwithandi.myr.id/pl/roasting-cv-and-linkedin" target="_blank">
           <button className={`font-bold py-1 w-36 md:py-2 md:w-48 border border-2 border-black bg-black text-white rounded hover:bg-white hover:text-black`} type="button">
             Consult Now!
           </button>

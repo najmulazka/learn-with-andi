@@ -8,7 +8,7 @@ import { getSelfCheckLandingJobs, updateSelfCheckLandingJob } from '../../servic
 import { CookiesKey, CookiesStorage } from '../../utils/cookies';
 import axios from 'axios';
 import { getCategoryLandingJobs } from '../../services/categoryLandingJob.service';
-import { downloadStyledPDF } from '../../utils/DownloadPDF';
+// import { downloadStyledPDF } from '../../utils/DownloadPDF';
 
 function LandingJobUser() {
   const [landingJobs, setLandingJobs] = useState([]);
@@ -88,9 +88,9 @@ function LandingJobUser() {
     }
   };
 
-  const download = () => {
-    downloadStyledPDF();
-  };
+  // const download = () => {
+  //   downloadStyledPDF();
+  // };
 
   return (
     <div>
@@ -100,7 +100,7 @@ function LandingJobUser() {
         <div className="py-3.5 px-4 md:py-4 md:px-16">
           <div className="mb-4 flex justify-between">
             <div className="text-blue-900 font-bold">Progress</div>
-            <button onClick={download}>download</button>
+            {/* <button onClick={download}>download</button> */}
             {/* <input type="text" id="search" className="rounded-full py-2 px-2 text-center text-gray-800 text-sm shadow-md" placeholder="Search for something" /> */}
           </div>
           <div className="hidden md:block">

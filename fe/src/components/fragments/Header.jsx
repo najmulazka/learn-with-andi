@@ -63,7 +63,8 @@ function Header() {
                   Sign In
                 </Button>
               </a>
-              <a href="/Booking">
+              {/* <a href="/Booking"> */}
+              <a href="https://learnwithandi.myr.id/pl/roasting-cv-and-linkedin" target="_blank">
                 <Button variant="black" variantHover="white" textHover="black" textColor="white">
                   Book Consultation
                 </Button>
@@ -71,7 +72,8 @@ function Header() {
             </>
           ) : (
             <>
-              <a href="/Booking" className="font-semibold flex items-center text-orange-500 hover:text-orange-300 py-1 md:py-2 md:px-4 px-2 text-xs md:text-base">
+              {/* <a href="/Booking" className="font-semibold flex items-center text-orange-500 hover:text-orange-300 py-1 md:py-2 md:px-4 px-2 text-xs md:text-base"> */}
+              <a href="https://learnwithandi.myr.id/pl/roasting-cv-and-linkedin" target="_blank" className="font-semibold flex items-center text-orange-500 hover:text-orange-300 py-1 md:py-2 md:px-4 px-2 text-xs md:text-base">
                 Book Consultation
               </a>
               <a href="/user">
